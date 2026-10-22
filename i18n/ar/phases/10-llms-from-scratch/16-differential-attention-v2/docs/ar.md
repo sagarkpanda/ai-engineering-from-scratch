@@ -42,15 +42,15 @@ w_i = \frac{\exp(q \cdot k_i / \sqrt{d})}{\sum_j \exp(q \cdot k_j / \sqrt{d})}
 
 ```math
 \begin{aligned}
-A_1 &= \operatorname{softmax}(Q_1 K_1^T / \sqrt{d}) \\
-A_2 &= \operatorname{softmax}(Q_2 K_2^T / \sqrt{d})
+A_1 &= \mathop{\mathrm{softmax}}(Q_1 K_1^T / \sqrt{d}) \\
+A_2 &= \mathop{\mathrm{softmax}}(Q_2 K_2^T / \sqrt{d})
 \end{aligned}
 ```
 
 الناتج:
 
 ```math
-\operatorname{DiffAttn} = (A_1 - \lambda \cdot A_2) V
+\mathop{\mathrm{DiffAttn}} = (A_1 - \lambda \cdot A_2) V
 ```
 
 يُلغي الخسارة أي توزيع ضجيج يشترك فيه الخرائطتان. إذا كانت كلتا الخرائط ذات وزن متساو على الرموز 127k غير المتعلقة (والتي سوف تقوم بها ، عند البدء عشوائيًا) ، فسيتم إلغاء تلك الرموز. الإشارة  الوزن القصوى على الرموز القليلة ذات الصلة بالفعل  فقط يتم إلغاءها إذا ظهرت في كلتا الخرائط بنفس الكبيرة ، والتي لن تفعل مرة واحدة عندما يتدرب النموذج.
