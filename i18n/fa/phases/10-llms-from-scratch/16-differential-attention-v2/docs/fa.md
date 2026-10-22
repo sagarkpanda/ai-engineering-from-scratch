@@ -42,15 +42,15 @@ w_i = \frac{\exp(q \cdot k_i / \sqrt{d})}{\sum_j \exp(q \cdot k_j / \sqrt{d})}
 
 ```math
 \begin{aligned}
-A_1 &= \operatorname{softmax}(Q_1 K_1^T / \sqrt{d}) \\
-A_2 &= \operatorname{softmax}(Q_2 K_2^T / \sqrt{d})
+A_1 &= \mathop{\mathrm{softmax}}(Q_1 K_1^T / \sqrt{d}) \\
+A_2 &= \mathop{\mathrm{softmax}}(Q_2 K_2^T / \sqrt{d})
 \end{aligned}
 ```
 
 تولید:
 
 ```math
-\operatorname{DiffAttn} = (A_1 - \lambda \cdot A_2) V
+\mathop{\mathrm{DiffAttn}} = (A_1 - \lambda \cdot A_2) V
 ```
 
 این تخفیف هر گونه توزیع سر و صدا را که دو نقشه به اشتراک می گذارند لغو می کند. اگر هر دو نقشه وزن تقریباً یکسانی در توکن های 127k غیر مرتبط دارند (که آنها در ابتداء تصادفی می کنند) ، آنها لغو می شوند. سیگنال  وزن اوج در چند توکن واقعاً مرتبط  فقط لغو می شود اگر در هر دو نقشه با همان شدت ظاهر شود ، که این امر زمانی که مدل قطار نیست.

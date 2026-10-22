@@ -42,20 +42,20 @@ DeepSeek-V3 اضافه می کنه `D`ماژول های MTP در بالای مد
 ```math
 \begin{aligned}
 h_i^{(0)} &= \text{main model backbone at position } i \\
-h_i^{(k)} &= T_k\Big( M_k \cdot \operatorname{concat}\big(\operatorname{RMSNorm}(h_i^{(k-1)}), \operatorname{RMSNorm}(E(t_{i+k}))\big) \Big) \quad \text{for } k \ge 1
+h_i^{(k)} &= T_k\Big( M_k \cdot \mathop{\mathrm{concat}}\big(\mathop{\mathrm{RMSNorm}}(h_i^{(k-1)}), \mathop{\mathrm{RMSNorm}}(E(t_{i+k}))\big) \Big) \quad \text{for } k \ge 1
 \end{aligned}
 ```
 
 پیش بینی دقیق اینه:
 
 ```math
-\text{logits}_{i+k} = \operatorname{Out}(h_i^{(k-1)}) \quad \text{for } k = 1, \ldots, D
+\text{logits}_{i+k} = \mathop{\mathrm{Out}}(h_i^{(k-1)}) \quad \text{for } k = 1, \ldots, D
 ```
 
 از دست دادن عمق ، اين است که اينترپي در مقابل حقيقت عمومي`t_{i+k}`:
 
 ```math
-L_k = \operatorname{CE}(\text{logits}_{i+k}, t_{i+k})
+L_k = \mathop{\mathrm{CE}}(\text{logits}_{i+k}, t_{i+k})
 ```
 
 از دست دادن مفاصل در طول عمق:

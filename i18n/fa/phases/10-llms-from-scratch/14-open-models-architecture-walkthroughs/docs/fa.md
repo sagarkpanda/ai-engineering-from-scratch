@@ -53,7 +53,7 @@
 LayerNorm میانگین را از دست می دهد، به std، مقیاس ها و تغییرات تقسیم می شود. RMSNorm فقط مقیاس را حفظ می کند:
 
 ```math
-\operatorname{RMSNorm}(x) = \frac{x}{\sqrt{\operatorname{mean}(x^2) + \epsilon}} \cdot \gamma
+\mathop{\mathrm{RMSNorm}}(x) = \frac{x}{\sqrt{\mathop{\mathrm{mean}}(x^2) + \epsilon}} \cdot \gamma
 ```
 
 هیچ معادلات معادل. هیچ تعصب. یک ماتمل کمتر در هر توکن. ژانگ و سنریچ (2019) استدلال کردند که با LayerNorm در ترجمه ماشین مطابقت دارد در حالی که 10٪ سریعتر است. هر مدل باز مدرن آن را اجرا می کند.
@@ -79,7 +79,7 @@ score = q_rotated . k_rotated
 MLP GPT-2`x -> gelu(xW1 + b1) -> (...)W2 + b2`SwiGLU (Shazeer 2020) فعال سازی را با یک محصول بسته جایگزین می کند:
 
 ```math
-\operatorname{SwiGLU}(x) = (xW_1) \cdot \operatorname{sigmoid}(xW_1) \cdot xV
+\mathop{\mathrm{SwiGLU}}(x) = (xW_1) \cdot \mathop{\mathrm{sigmoid}}(xW_1) \cdot xV
 ```
 
 دو طرح متوازی به جای یک، با فعال سازی سوئیس بسته شده است. به طور تجربی قوی تر در پیچیدگی هر پارامتر. Llama 2 آن را اتخاذ کرد، همه دنبال کردند. اندازه پنهان MLP معمولاً تنظیم می شود تا تعداد پارامتر کل با MLP کثیف اصلی مطابقت داشته باشد: اگر GPT-2 استفاده شد`ff_dim = 4 * hidden`, SwiGLU استفاده می کند`ff_dim = (2/3) * 4 * hidden = 8/3 * hidden`. .
