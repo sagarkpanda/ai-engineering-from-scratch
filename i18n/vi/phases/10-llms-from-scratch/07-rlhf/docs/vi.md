@@ -81,7 +81,7 @@ Dữ liệu đào tạo là các cặp sở thích của con người. Đối v�
 Chức năng mất mát sử dụng mô hình Bradley-Terry của các ưu tiên cặp:
 
 ```math
-\text{loss} = -\log\big(\operatorname{sigmoid}(\text{reward}(\text{preferred}) - \text{reward}(\text{rejected}))\big)
+\text{loss} = -\log\big(\mathop{\mathrm{sigmoid}}(\text{reward}(\text{preferred}) - \text{reward}(\text{rejected}))\big)
 ```
 
 Đây là phương trình chính.`sigmoid(reward(A) - reward(B))`cho khả năng rằng phản ứng A được ưu tiên so với phản ứng B. Sự mất mát thúc đẩy mô hình phần thưởng để gán điểm cao hơn cho phản ứng được ưu tiên.
@@ -138,7 +138,7 @@ PPO sử dụng một "các mục tiêu thay thế bị cắt giảm" để ngă
 ```math
 \begin{aligned}
 \text{ratio} &= \pi_{\text{new}}(\text{action} \mid \text{state}) / \pi_{\text{old}}(\text{action} \mid \text{state}) \\
-\text{clipped\_ratio} &= \operatorname{clip}(\text{ratio}, 1 - \epsilon, 1 + \epsilon) \\
+\text{clipped\_ratio} &= \mathop{\mathrm{clip}}(\text{ratio}, 1 - \epsilon, 1 + \epsilon) \\
 \text{loss} &= -\min(\text{ratio} \cdot \text{advantage}, \text{clipped\_ratio} \cdot \text{advantage})
 \end{aligned}
 ```
@@ -618,7 +618,7 @@ Bài học này sẽ mang lại kết quả `outputs/prompt-reward-model-designe
 |------|----------------|----------------------|
 | RLHF | "Training with human feedback" | Reinforcement Learning from Human Feedback: a three-stage pipeline (SFT, reward model, PPO) that optimizes language model outputs using human preference signals |
 | Reward model | "A model that scores responses" | A transformer with a scalar output head, trained on pairwise human preferences using the Bradley-Terry loss |
-| Bradley-Terry | "The comparison model" | A probabilistic model where $P(A > B) = \operatorname{sigmoid}(\text{score}(A) - \text{score}(B))$, converting pairwise preferences into a consistent scoring function |
+| Bradley-Terry | "The comparison model" | A probabilistic model where $P(A > B) = \mathop{\mathrm{sigmoid}}(\text{score}(A) - \text{score}(B))$, converting pairwise preferences into a consistent scoring function |
 | PPO | "The RL algorithm" | Proximal Policy Optimization: updates the policy to maximize reward while clipping the update magnitude to prevent instability |
 | KL divergence | "How different two distributions are" | A measure of the difference between the policy model's token distribution and the reference model's -- used as a penalty to prevent reward hacking |
 | KL penalty | "The leash on the model" | $\beta \cdot \mathrm{KL}(\text{policy} \Vert \text{reference})$ subtracted from the reward signal -- prevents the policy from diverging too far from the SFT checkpoint |

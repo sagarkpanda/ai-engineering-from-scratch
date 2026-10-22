@@ -42,20 +42,20 @@ Trong buổi tập, cho một dấu tiền từ vị trí qua vị trí `i`, tr�
 ```math
 \begin{aligned}
 h_i^{(0)} &= \text{main model backbone at position } i \\
-h_i^{(k)} &= T_k\Big( M_k \cdot \operatorname{concat}\big(\operatorname{RMSNorm}(h_i^{(k-1)}), \operatorname{RMSNorm}(E(t_{i+k}))\big) \Big) \quad \text{for } k \ge 1
+h_i^{(k)} &= T_k\Big( M_k \cdot \mathop{\mathrm{concat}}\big(\mathop{\mathrm{RMSNorm}}(h_i^{(k-1)}), \mathop{\mathrm{RMSNorm}}(E(t_{i+k}))\big) \Big) \quad \text{for } k \ge 1
 \end{aligned}
 ```
 
 Dự đoán sâu sắc là:
 
 ```math
-\text{logits}_{i+k} = \operatorname{Out}(h_i^{(k-1)}) \quad \text{for } k = 1, \ldots, D
+\text{logits}_{i+k} = \mathop{\mathrm{Out}}(h_i^{(k-1)}) \quad \text{for } k = 1, \ldots, D
 ```
 
 Sự mất mát sâu sắc là sự thấu hiểu giữa sự thật và sự thật cơ bản .`t_{i+k}`- Có thể là:
 
 ```math
-L_k = \operatorname{CE}(\text{logits}_{i+k}, t_{i+k})
+L_k = \mathop{\mathrm{CE}}(\text{logits}_{i+k}, t_{i+k})
 ```
 
 Sự mất khớp qua độ sâu:

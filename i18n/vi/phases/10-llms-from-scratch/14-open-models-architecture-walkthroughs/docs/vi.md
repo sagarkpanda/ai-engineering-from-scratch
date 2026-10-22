@@ -53,7 +53,7 @@ Mọi thứ khác (kế hoạch học tập, hỗn hợp dữ liệu, kích thư
 LayerNorm trừ trung bình, chia bằng std, thang đo và thay đổi. RMSNorm chỉ giữ chỉ thang đo:
 
 ```math
-\operatorname{RMSNorm}(x) = \frac{x}{\sqrt{\operatorname{mean}(x^2) + \epsilon}} \cdot \gamma
+\mathop{\mathrm{RMSNorm}}(x) = \frac{x}{\sqrt{\mathop{\mathrm{mean}}(x^2) + \epsilon}} \cdot \gamma
 ```
 
 Không trừ trung bình. Không thiên vị. Một matmul ít hơn mỗi token. Zhang và Sennrich (2019) lập luận rằng nó phù hợp với LayerNorm trong dịch máy trong khi nhanh hơn 10%.
@@ -79,7 +79,7 @@ Mỗi Llama, Mistral, Qwen, DeepSeek và Gemma sử dụng RoPE. Gemma 2 sử d�
 MLP của GPT-2 là `x -> gelu(xW1 + b1) -> (...)W2 + b2`SwiGLU (Shazeer 2020) thay thế kích hoạt bằng một sản phẩm bị khóa:
 
 ```math
-\operatorname{SwiGLU}(x) = (xW_1) \cdot \operatorname{sigmoid}(xW_1) \cdot xV
+\mathop{\mathrm{SwiGLU}}(x) = (xW_1) \cdot \mathop{\mathrm{sigmoid}}(xW_1) \cdot xV
 ```
 
 Hai dự đoán song song thay vì một, được gát bởi kích hoạt Swish. Khác cảm nghiệm mạnh hơn về độ phức tạp mỗi tham số. Llama 2 đã chấp nhận nó, mọi người đều theo.`ff_dim = 4 * hidden`, SwiGLU sử dụng `ff_dim = (2/3) * 4 * hidden = 8/3 * hidden`- Tôi không biết.

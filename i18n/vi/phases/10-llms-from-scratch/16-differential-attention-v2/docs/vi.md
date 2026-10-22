@@ -42,15 +42,15 @@ Chia các dự đoán Q và K của mỗi đầu thành hai: $Q = (Q_1, Q_2)$và
 
 ```math
 \begin{aligned}
-A_1 &= \operatorname{softmax}(Q_1 K_1^T / \sqrt{d}) \\
-A_2 &= \operatorname{softmax}(Q_2 K_2^T / \sqrt{d})
+A_1 &= \mathop{\mathrm{softmax}}(Q_1 K_1^T / \sqrt{d}) \\
+A_2 &= \mathop{\mathrm{softmax}}(Q_2 K_2^T / \sqrt{d})
 \end{aligned}
 ```
 
 Tạo ra:
 
 ```math
-\operatorname{DiffAttn} = (A_1 - \lambda \cdot A_2) V
+\mathop{\mathrm{DiffAttn}} = (A_1 - \lambda \cdot A_2) V
 ```
 
 Việc trừ bỏ bất kỳ phân phối tiếng ồn nào mà hai bản đồ chia sẻ. Nếu cả hai bản đồ có trọng lượng tương tự trên các token không liên quan 127k (mà họ sẽ, khi khởi đầu ngẫu nhiên), thì chúng sẽ hủy bỏ. tín hiệu  trọng lượng đỉnh trên vài token thực sự liên quan  chỉ hủy bỏ nếu nó xuất hiện trong cả hai bản đồ với cùng một cường độ, điều mà nó sẽ không làm khi mô hình được đào tạo.

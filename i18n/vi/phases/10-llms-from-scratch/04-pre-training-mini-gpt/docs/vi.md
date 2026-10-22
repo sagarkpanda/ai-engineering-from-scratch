@@ -222,6 +222,10 @@ Dự án đầu ra ( đầu logits) chia sẻ trọng lượng với các mã h�
 
 ## Hãy xây dựng nó
 
+```figure
+iso-machine {"machine":"mini-gpt"}
+```
+
 ### Bước 1: Đặt lớp
 
 Các token embedment lập bản đồ mỗi 50257 token có thể được chuyển thành một vector 768 chiều.
@@ -258,7 +262,7 @@ def attention(Q, K, V, mask=None):
     return weights @ V
 ```
 
-Việc thực hiện softmax trừ tối đa trước khi tăng trưởng. Nếu không có điều này, exp(large_number) tràn sang vô hạn. Đây là một thủ thuật ổn định số mà không thay đổi đầu ra bởi vì$\operatorname{softmax}(x - c) = \operatorname{softmax}(x)$cho bất kỳ liên tục nào $c$- Tôi không biết.
+Việc thực hiện softmax trừ tối đa trước khi tăng trưởng. Nếu không có điều này, exp(large_number) tràn sang vô hạn. Đây là một thủ thuật ổn định số mà không thay đổi đầu ra bởi vì$\mathop{\mathrm{softmax}}(x - c) = \mathop{\mathrm{softmax}}(x)$cho bất kỳ liên tục nào $c$- Tôi không biết.
 
 ### Bước 3: Cung cấp nhiều đầu
 
@@ -504,7 +508,7 @@ Bài học này sẽ mang lại kết quả `outputs/prompt-gpt-architecture-ana
 
 1. Thay vào 12/12, hãy sửa đổi mô hình để sử dụng 24 lớp và 16 đầu.
 
-2. Thực hiện chức năng kích hoạt GELU $(\operatorname{GELU}(x) = x \cdot 0.5 \cdot (1 + \operatorname{erf}(x / \sqrt{2})))$và thay thế ReLU trong mạng feedforward.
+2. Thực hiện chức năng kích hoạt GELU $(\mathop{\mathrm{GELU}}(x) = x \cdot 0.5 \cdot (1 + \mathop{\mathrm{erf}}(x / \sqrt{2})))$và thay thế ReLU trong mạng feedforward.
 
 3. Thêm một bộ nhớ cache KV vào chức năng tạo. Cung cấp các tensor K và V cho mỗi lớp sau khi chuyển tiếp trước đầu tiên, và sử dụng lại cho các token tiếp theo. Đo tốc độ tăng tốc: tạo 200 token với và không có bộ nhớ cache và so sánh thời gian đồng hồ tường.
 
