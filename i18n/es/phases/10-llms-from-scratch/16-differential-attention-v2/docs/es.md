@@ -42,15 +42,15 @@ Divide las proyecciones de Q y K de cada cabeza en dos: $Q = (Q_1, Q_2)$y $K = (
 
 ```math
 \begin{aligned}
-A_1 &= \operatorname{softmax}(Q_1 K_1^T / \sqrt{d}) \\
-A_2 &= \operatorname{softmax}(Q_2 K_2^T / \sqrt{d})
+A_1 &= \mathop{\mathrm{softmax}}(Q_1 K_1^T / \sqrt{d}) \\
+A_2 &= \mathop{\mathrm{softmax}}(Q_2 K_2^T / \sqrt{d})
 \end{aligned}
 ```
 
 Producción:
 
 ```math
-\operatorname{DiffAttn} = (A_1 - \lambda \cdot A_2) V
+\mathop{\mathrm{DiffAttn}} = (A_1 - \lambda \cdot A_2) V
 ```
 
 La subtracción anula cualquier distribución de ruido que comparten los dos mapas. Si ambos mapas tienen un peso aproximadamente uniforme en los 127k tokens no relacionados (que, a partir de una inicialización aleatoria, lo harán), los otros se anulan. La señal  peso máximo en los pocos tokens realmente relevantes  solo se anula si aparece en ambos mapas a la misma magnitud, lo que no ocurre una vez que el modelo se muestre.

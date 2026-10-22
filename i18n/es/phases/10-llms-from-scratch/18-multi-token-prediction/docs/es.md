@@ -42,20 +42,20 @@ En el entrenamiento, para un prefijo a través de posición `i`, el estado ocult
 ```math
 \begin{aligned}
 h_i^{(0)} &= \text{main model backbone at position } i \\
-h_i^{(k)} &= T_k\Big( M_k \cdot \operatorname{concat}\big(\operatorname{RMSNorm}(h_i^{(k-1)}), \operatorname{RMSNorm}(E(t_{i+k}))\big) \Big) \quad \text{for } k \ge 1
+h_i^{(k)} &= T_k\Big( M_k \cdot \mathop{\mathrm{concat}}\big(\mathop{\mathrm{RMSNorm}}(h_i^{(k-1)}), \mathop{\mathrm{RMSNorm}}(E(t_{i+k}))\big) \Big) \quad \text{for } k \ge 1
 \end{aligned}
 ```
 
 La predicción por profundidad es:
 
 ```math
-\text{logits}_{i+k} = \operatorname{Out}(h_i^{(k-1)}) \quad \text{for } k = 1, \ldots, D
+\text{logits}_{i+k} = \mathop{\mathrm{Out}}(h_i^{(k-1)}) \quad \text{for } k = 1, \ldots, D
 ```
 
 La pérdida por profundidad es la entropía cruzada contra la verdad fundamental .`t_{i+k}`¿Qué es esto ?
 
 ```math
-L_k = \operatorname{CE}(\text{logits}_{i+k}, t_{i+k})
+L_k = \mathop{\mathrm{CE}}(\text{logits}_{i+k}, t_{i+k})
 ```
 
 La pérdida articular a través de profundidades:

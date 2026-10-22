@@ -222,6 +222,10 @@ La proyección de salida (cabeza de logits) comparte pesos con la matriz de inco
 
 ## Construye el mismo
 
+```figure
+iso-machine {"machine":"mini-gpt"}
+```
+
 ### Paso 1: Incorporar una capa
 
 Las incorporaciones de tokens mapean cada una de las 50.257 tokens posibles a un vector de 768 dimensiones.
@@ -258,7 +262,7 @@ def attention(Q, K, V, mask=None):
     return weights @ V
 ```
 
-La implementación softmax restará el máximo antes de exponenciar. sin esto, exp(large_number) se sobreflage a infinito. Este es un truco de estabilidad numérica que no cambia la salida porque $\operatorname{softmax}(x - c) = \operatorname{softmax}(x)$para cualquier constante $c$¿ Qué ?
+La implementación softmax restará el máximo antes de exponenciar. sin esto, exp(large_number) se sobreflage a infinito. Este es un truco de estabilidad numérica que no cambia la salida porque $\mathop{\mathrm{softmax}}(x - c) = \mathop{\mathrm{softmax}}(x)$para cualquier constante $c$¿ Qué ?
 
 ### Paso 3: Atención por múltiples cabezas
 
@@ -504,7 +508,7 @@ Esta lección produce`outputs/prompt-gpt-architecture-analyzer.md`-- un prompt q
 
 1. Modificar el modelo para utilizar 24 capas y 16 cabezas en lugar de 12/12. Cuente los parámetros. ¿Cómo se compara el duplicado de profundidad con el duplicado de ancho (dimensión de incorporación)?
 
-2. Implementar la función de activación de GELU $(\operatorname{GELU}(x) = x \cdot 0.5 \cdot (1 + \operatorname{erf}(x / \sqrt{2})))$Ejecutar un entrenamiento de 500 pasos con cada activación y comparar la pérdida final.
+2. Implementar la función de activación de GELU $(\mathop{\mathrm{GELU}}(x) = x \cdot 0.5 \cdot (1 + \mathop{\mathrm{erf}}(x / \sqrt{2})))$Ejecutar un entrenamiento de 500 pasos con cada activación y comparar la pérdida final.
 
 3. Añadir una caché KV a la función de generación. Almacenar los tensores K y V para cada capa después del primer paso hacia adelante, y reutilizarlos para los tokens posteriores. Medir la velocidad: generar 200 tokens con y sin la caché y comparar el tiempo del reloj de pared.
 
