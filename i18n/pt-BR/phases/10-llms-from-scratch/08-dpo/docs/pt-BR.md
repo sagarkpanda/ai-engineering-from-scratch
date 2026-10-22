@@ -56,8 +56,8 @@ Substituindo isto no modelo de preferência Bradley-Terry:
 
 ```math
 \begin{aligned}
-P(y_w > y_l \mid x) &= \operatorname{sigmoid}(R(x, y_w) - R(x, y_l)) \\
-&= \operatorname{sigmoid}\left(\beta \left(\log \frac{\pi(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \log \frac{\pi(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right)
+P(y_w > y_l \mid x) &= \mathop{\mathrm{sigmoid}}(R(x, y_w) - R(x, y_l)) \\
+&= \mathop{\mathrm{sigmoid}}\left(\beta \left(\log \frac{\pi(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \log \frac{\pi(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right)
 \end{aligned}
 ```
 
@@ -66,7 +66,7 @@ O $Z(x)$Termos cancelar porque ambas as respostas condição no mesmo prompt $x$
 ### A perda do DPO
 
 ```math
-L_{\text{DPO}} = -\log \operatorname{sigmoid}\left(\beta \left(\log \frac{\pi(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \log \frac{\pi(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right)
+L_{\text{DPO}} = -\log \mathop{\mathrm{sigmoid}}\left(\beta \left(\log \frac{\pi(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \log \frac{\pi(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right)
 ```
 
 Vamos desembalar cada peça:

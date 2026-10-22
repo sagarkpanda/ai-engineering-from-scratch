@@ -53,7 +53,7 @@ Tudo o resto (hora de aprendizagem, mix de dados, tamanho do lote, comprimento d
 LayerNorm subtrai a média, dividiu por std, escalas e mudanças.
 
 ```math
-\operatorname{RMSNorm}(x) = \frac{x}{\sqrt{\operatorname{mean}(x^2) + \epsilon}} \cdot \gamma
+\mathop{\mathrm{RMSNorm}}(x) = \frac{x}{\sqrt{\mathop{\mathrm{mean}}(x^2) + \epsilon}} \cdot \gamma
 ```
 
 Não há subtração média. Não há viés. Um matmul menos por token. Zhang e Sennrich (2019) argumentaram que corresponde ao LayerNorm na tradução automática, sendo 10% mais rápido.
@@ -79,7 +79,7 @@ Cada Llama, Mistral, Qwen, DeepSeek e Gemma usa RoPE. Gemma 2 usa um híbrido (R
 O MLP do GPT-2 é `x -> gelu(xW1 + b1) -> (...)W2 + b2`O SwiGLU (Shazeer 2020) substitui a ativação por um produto fechado:
 
 ```math
-\operatorname{SwiGLU}(x) = (xW_1) \cdot \operatorname{sigmoid}(xW_1) \cdot xV
+\mathop{\mathrm{SwiGLU}}(x) = (xW_1) \cdot \mathop{\mathrm{sigmoid}}(xW_1) \cdot xV
 ```
 
 Duas projeções em paralelo em vez de uma, fechadas pela ativação Swish. Empiricamente mais forte em perplexidade por parâmetro. Llama 2 adotou, todos seguiram. O tamanho oculto do MLP é geralmente definido para que o número total de parâmetros coincida com o MLP denso original: se GPT-2 foi usado `ff_dim = 4 * hidden`, SwiGLU utiliza `ff_dim = (2/3) * 4 * hidden = 8/3 * hidden`- Não .

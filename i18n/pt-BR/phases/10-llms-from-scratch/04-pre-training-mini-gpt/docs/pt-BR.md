@@ -222,6 +222,10 @@ A projeção de saída (cabeça de logits) compartilha pesos com a matriz de inc
 
 ## Construí-lo
 
+```figure
+iso-machine {"machine":"mini-gpt"}
+```
+
 ### Passo 1: Introdução de camada
 
 Embedings de tokens mapeam cada um dos 50.257 tokens possíveis para um vetor de 768 dimensões. Embedings de posição adicionam informações sobre onde cada token fica na sequência. Os dois são somados.
@@ -258,7 +262,7 @@ def attention(Q, K, V, mask=None):
     return weights @ V
 ```
 
-A implementação softmax subtrai o máximo antes de exponenciar. sem isso, exp(large_number) supera em infinito.$\operatorname{softmax}(x - c) = \operatorname{softmax}(x)$para qualquer constante $c$- Não .
+A implementação softmax subtrai o máximo antes de exponenciar. sem isso, exp(large_number) supera em infinito.$\mathop{\mathrm{softmax}}(x - c) = \mathop{\mathrm{softmax}}(x)$para qualquer constante $c$- Não .
 
 ### Passo 3: Atenção de várias cabeças
 
@@ -504,7 +508,7 @@ Esta lição produz`outputs/prompt-gpt-architecture-analyzer.md`-- um prompt que
 
 1. Modifique o modelo para usar 24 camadas e 16 cabeças em vez de 12/12. Conte os parâmetros. Como duplicar a profundidade compara-se ao duplicar a largura (dimensão de incorporação)?
 
-2. Implementar a função de ativação GELU $(\operatorname{GELU}(x) = x \cdot 0.5 \cdot (1 + \operatorname{erf}(x / \sqrt{2})))$E substituir o ReLU na rede de feedforward.
+2. Implementar a função de ativação GELU $(\mathop{\mathrm{GELU}}(x) = x \cdot 0.5 \cdot (1 + \mathop{\mathrm{erf}}(x / \sqrt{2})))$E substituir o ReLU na rede de feedforward.
 
 3. Adicione um cache KV à função de geração. Armazenar tensores K e V para cada camada após a primeira passagem para a frente, e reutilizar-os para tokens subsequentes. Medir a velocidade: gerar 200 tokens com e sem o cache e comparar o tempo do relógio de parede.
 
