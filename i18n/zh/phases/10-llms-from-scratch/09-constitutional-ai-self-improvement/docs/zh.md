@@ -75,7 +75,7 @@ graph TD
 提醒PPO的目标 (从07课程):
 
 ```math
-L_{\text{PPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A, \operatorname{clip}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A\right)\right]
+L_{\text{PPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A, \mathop{\mathrm{clip}}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A\right)\right]
 ```
 
 在哪里`A`是优势,通常通过使用学习值网络的GAE估计`V(s)`价值网络是与政策相同的第二个模型. 它将内存翻倍,并引入了自己的训练循环.
@@ -83,13 +83,13 @@ L_{\text{PPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A, \operatorname{clip
 对于每一个提示,它采样一个组$G$答案 (通常是$G=16$对于每一个反应的回报,计算,然后在组内正常化:
 
 ```math
-A_i = \frac{r_i - \operatorname{mean}(r_1, \ldots, r_G)}{\operatorname{std}(r_1, \ldots, r_G)}
+A_i = \frac{r_i - \mathop{\mathrm{mean}}(r_1, \ldots, r_G)}{\mathop{\mathrm{std}}(r_1, \ldots, r_G)}
 ```
 
 优势是对应的回报的回报的z分数相对于其兄弟姐妹.没有值函数. 组作为自己的基线.
 
 ```math
-L_{\text{GRPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A_{\text{group}}, \operatorname{clip}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A_{\text{group}}\right)\right] - \beta \cdot \mathrm{KL}(\pi \,\|\, \pi_{\text{ref}})
+L_{\text{GRPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A_{\text{group}}, \mathop{\mathrm{clip}}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A_{\text{group}}\right)\right] - \beta \cdot \mathrm{KL}(\pi \,\|\, \pi_{\text{ref}})
 ```
 
 根据标准模型的罚款,同样存在,像PPO一样. 剪辑比率仍然存在. 没有的是单独的批评者.

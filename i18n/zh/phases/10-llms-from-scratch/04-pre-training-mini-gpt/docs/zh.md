@@ -222,6 +222,10 @@ graph LR
 
 ## 建立它
 
+```figure
+iso-machine {"machine":"mini-gpt"}
+```
+
 ### 步骤1: 嵌入层
 
 符号嵌入式将每一个可能的50,257个符号映射到768维向量.位置嵌入式添加有关每个符号在序列中的位置的信息.这两个是相结合的.
@@ -258,7 +262,7 @@ def attention(Q, K, V, mask=None):
     return weights @ V
 ```
 
-软max 实现在指数化之前减去最大值.如果没有, exp(large_number) 过度流到无限.这是一个数值稳定技巧,它不会改变输出,因为$\operatorname{softmax}(x - c) = \operatorname{softmax}(x)$对于任何常数$c$现在,我们要去.
+软max 实现在指数化之前减去最大值.如果没有, exp(large_number) 过度流到无限.这是一个数值稳定技巧,它不会改变输出,因为$\mathop{\mathrm{softmax}}(x - c) = \mathop{\mathrm{softmax}}(x)$对于任何常数$c$现在,我们要去.
 
 ### 步骤3:多头注意力
 
@@ -504,7 +508,7 @@ print(f"\nGenerated: {generated_text}")
 
 1. 修改模型以使用24层和16个头,而不是12/12. 计算参数. 翻倍深度与翻倍宽度 (嵌入维度) 相比如何?
 
-2. 执行GELU激活功能$(\operatorname{GELU}(x) = x \cdot 0.5 \cdot (1 + \operatorname{erf}(x / \sqrt{2})))$运行训练500步,每次激活,并比较最终损失.
+2. 执行GELU激活功能$(\mathop{\mathrm{GELU}}(x) = x \cdot 0.5 \cdot (1 + \mathop{\mathrm{erf}}(x / \sqrt{2})))$运行训练500步,每次激活,并比较最终损失.
 
 3. 添加一个KV缓存到生成函数. 存储K和V缩器在第一次前传后,然后再用于后续代币. 测量加快速度:生成200个代币,无论是没有缓存,并比较墙钟时间.
 
