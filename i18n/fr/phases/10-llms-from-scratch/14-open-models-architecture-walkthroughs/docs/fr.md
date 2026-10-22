@@ -53,7 +53,7 @@ Tout le reste (horaire de taux d'apprentissage, mix de données, taille de lot, 
 LayerNorm soustrait la moyenne, divisée par std, échelle et changements.
 
 ```math
-\operatorname{RMSNorm}(x) = \frac{x}{\sqrt{\operatorname{mean}(x^2) + \epsilon}} \cdot \gamma
+\mathop{\mathrm{RMSNorm}}(x) = \frac{x}{\sqrt{\mathop{\mathrm{mean}}(x^2) + \epsilon}} \cdot \gamma
 ```
 
 Aucune soustraction moyenne. Aucun biais. Un matmul moins par jeton. Zhang et Sennrich (2019) ont soutenu qu'il correspondait à LayerNorm sur la traduction automatique tout en étant 10% plus rapide.
@@ -79,7 +79,7 @@ Chaque Llama, Mistral, Qwen, DeepSeek et Gemma utilise un RoPE. Gemma 2 utilise 
 Le PMA du GPT-2 est `x -> gelu(xW1 + b1) -> (...)W2 + b2`. SwiGLU (Shazeer 2020) remplace l'activation par un produit fermé:
 
 ```math
-\operatorname{SwiGLU}(x) = (xW_1) \cdot \operatorname{sigmoid}(xW_1) \cdot xV
+\mathop{\mathrm{SwiGLU}}(x) = (xW_1) \cdot \mathop{\mathrm{sigmoid}}(xW_1) \cdot xV
 ```
 
 Deux projections en parallèle au lieu d'une, fermées par l'activation Swish. Empirieusement plus forte sur la perplexité par paramètre. Llama 2 l'a adopté, tout le monde l'a suivi. La taille cachée du MLP est généralement réglée de sorte que le nombre total de paramètres correspond à l'original dense MLP: si GPT-2 a été utilisé `ff_dim = 4 * hidden`, SwiGLU utilise `ff_dim = (2/3) * 4 * hidden = 8/3 * hidden`- Je suis désolé .

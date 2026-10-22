@@ -42,15 +42,15 @@ Divisez les projections Q et K de chaque tête en deux: $Q = (Q_1, Q_2)$et $K = 
 
 ```math
 \begin{aligned}
-A_1 &= \operatorname{softmax}(Q_1 K_1^T / \sqrt{d}) \\
-A_2 &= \operatorname{softmax}(Q_2 K_2^T / \sqrt{d})
+A_1 &= \mathop{\mathrm{softmax}}(Q_1 K_1^T / \sqrt{d}) \\
+A_2 &= \mathop{\mathrm{softmax}}(Q_2 K_2^T / \sqrt{d})
 \end{aligned}
 ```
 
 Résultats:
 
 ```math
-\operatorname{DiffAttn} = (A_1 - \lambda \cdot A_2) V
+\mathop{\mathrm{DiffAttn}} = (A_1 - \lambda \cdot A_2) V
 ```
 
 La soustraction annule toute distribution de bruit que les deux cartes partagent. Si les deux cartes ont un poids approximativement uniforme sur les 127k jetons non liés (qui ils le feront, à l'initialisation aléatoire), ceux-ci annulent. Le signal  poids maximum sur les quelques jetons réellement pertinents  annule uniquement s'il apparaît dans les deux cartes à la même magnitude, ce qui ne le sera pas une fois que le modèle traîne.

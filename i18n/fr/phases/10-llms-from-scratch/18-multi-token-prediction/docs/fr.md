@@ -42,20 +42,20 @@ En formation, pour un préfixe par position `i`, l' état caché par profondeur 
 ```math
 \begin{aligned}
 h_i^{(0)} &= \text{main model backbone at position } i \\
-h_i^{(k)} &= T_k\Big( M_k \cdot \operatorname{concat}\big(\operatorname{RMSNorm}(h_i^{(k-1)}), \operatorname{RMSNorm}(E(t_{i+k}))\big) \Big) \quad \text{for } k \ge 1
+h_i^{(k)} &= T_k\Big( M_k \cdot \mathop{\mathrm{concat}}\big(\mathop{\mathrm{RMSNorm}}(h_i^{(k-1)}), \mathop{\mathrm{RMSNorm}}(E(t_{i+k}))\big) \Big) \quad \text{for } k \ge 1
 \end{aligned}
 ```
 
 La prédiction par profondeur est:
 
 ```math
-\text{logits}_{i+k} = \operatorname{Out}(h_i^{(k-1)}) \quad \text{for } k = 1, \ldots, D
+\text{logits}_{i+k} = \mathop{\mathrm{Out}}(h_i^{(k-1)}) \quad \text{for } k = 1, \ldots, D
 ```
 
 La perte de profondeur est une entropie croisée contre la vérité fondamentale .`t_{i+k}`- Le numéro de la liste:
 
 ```math
-L_k = \operatorname{CE}(\text{logits}_{i+k}, t_{i+k})
+L_k = \mathop{\mathrm{CE}}(\text{logits}_{i+k}, t_{i+k})
 ```
 
 La perte articulaire à travers les profondeurs:

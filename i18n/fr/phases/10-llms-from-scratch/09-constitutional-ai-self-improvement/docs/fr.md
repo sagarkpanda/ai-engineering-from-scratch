@@ -75,7 +75,7 @@ DeepSeek a introduit le GRPO dans le document DeepSeekMath (2024) et l'a utilis�
 Rappelons l'objectif de la PPO (à partir de la leçon 07):
 
 ```math
-L_{\text{PPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A, \operatorname{clip}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A\right)\right]
+L_{\text{PPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A, \mathop{\mathrm{clip}}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A\right)\right]
 ```
 
 où `A`est l'avantage, généralement estimé avec GAE en utilisant un réseau de valeur apprise `V(s)`Le réseau de valeur est un deuxième modèle de la même taille que la politique.
@@ -83,13 +83,13 @@ où `A`est l'avantage, généralement estimé avec GAE en utilisant un réseau d
 GRPO jette la fonction de valeur. Pour chaque prompt, il prélève un groupe de $G$Les réponses (généralement $G=16$La récompense pour chaque réponse est calculée, puis normalisée au sein du groupe:
 
 ```math
-A_i = \frac{r_i - \operatorname{mean}(r_1, \ldots, r_G)}{\operatorname{std}(r_1, \ldots, r_G)}
+A_i = \frac{r_i - \mathop{\mathrm{mean}}(r_1, \ldots, r_G)}{\mathop{\mathrm{std}}(r_1, \ldots, r_G)}
 ```
 
 L'avantage est le score z de la récompense de la réponse par rapport à ses frères et sœurs.
 
 ```math
-L_{\text{GRPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A_{\text{group}}, \operatorname{clip}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A_{\text{group}}\right)\right] - \beta \cdot \mathrm{KL}(\pi \,\|\, \pi_{\text{ref}})
+L_{\text{GRPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A_{\text{group}}, \mathop{\mathrm{clip}}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A_{\text{group}}\right)\right] - \beta \cdot \mathrm{KL}(\pi \,\|\, \pi_{\text{ref}})
 ```
 
 La pénalité KL contre le modèle de référence est toujours là, la même que la PPO.

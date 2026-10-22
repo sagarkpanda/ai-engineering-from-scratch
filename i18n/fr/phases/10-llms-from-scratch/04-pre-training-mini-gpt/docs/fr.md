@@ -222,6 +222,10 @@ La projection de sortie (tête de logits) partage des poids avec la matrice d'in
 
 ## Faites-le
 
+```figure
+iso-machine {"machine":"mini-gpt"}
+```
+
 ### Étape 1: Intégrer une couche
 
 Les emplacements de jetons cartographient chacun des 50 257 jetons possibles à un vecteur 768 dimensions.
@@ -258,7 +262,7 @@ def attention(Q, K, V, mask=None):
     return weights @ V
 ```
 
-La mise en œuvre de softmax soustrait le maximum avant d'exponentier. Sans cela, exp(large_number) dépasse à l'infini.$\operatorname{softmax}(x - c) = \operatorname{softmax}(x)$pour une constante $c$- Je suis désolé .
+La mise en œuvre de softmax soustrait le maximum avant d'exponentier. Sans cela, exp(large_number) dépasse à l'infini.$\mathop{\mathrm{softmax}}(x - c) = \mathop{\mathrm{softmax}}(x)$pour une constante $c$- Je suis désolé .
 
 ### Étape 3: Attention à plusieurs têtes
 
@@ -504,7 +508,7 @@ Cette leçon produit `outputs/prompt-gpt-architecture-analyzer.md`-- une requêt
 
 1. Modifiez le modèle pour utiliser 24 couches et 16 têtes au lieu de 12/12.
 
-2. Implémenter la fonction d' activation de GELU $(\operatorname{GELU}(x) = x \cdot 0.5 \cdot (1 + \operatorname{erf}(x / \sqrt{2})))$et remplacer la ReLU dans le réseau de retour.
+2. Implémenter la fonction d' activation de GELU $(\mathop{\mathrm{GELU}}(x) = x \cdot 0.5 \cdot (1 + \mathop{\mathrm{erf}}(x / \sqrt{2})))$et remplacer la ReLU dans le réseau de retour.
 
 3. Ajoutez un cache KV à la fonction de génération. Conservez les tensors K et V pour chaque couche après le premier passage vers l'avant, et réutilisez-les pour les jetons ultérieurs. Mesurez la vitesse: générez 200 jetons avec et sans le cache et comparez le temps de l'horloge murale.
 
