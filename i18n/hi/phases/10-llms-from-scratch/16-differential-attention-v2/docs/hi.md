@@ -42,15 +42,15 @@ w_i = \frac{\exp(q \cdot k_i / \sqrt{d})}{\sum_j \exp(q \cdot k_j / \sqrt{d})}
 
 ```math
 \begin{aligned}
-A_1 &= \operatorname{softmax}(Q_1 K_1^T / \sqrt{d}) \\
-A_2 &= \operatorname{softmax}(Q_2 K_2^T / \sqrt{d})
+A_1 &= \mathop{\mathrm{softmax}}(Q_1 K_1^T / \sqrt{d}) \\
+A_2 &= \mathop{\mathrm{softmax}}(Q_2 K_2^T / \sqrt{d})
 \end{aligned}
 ```
 
 आउटपुटः
 
 ```math
-\operatorname{DiffAttn} = (A_1 - \lambda \cdot A_2) V
+\mathop{\mathrm{DiffAttn}} = (A_1 - \lambda \cdot A_2) V
 ```
 
 घटाव दोनों मानचित्रों के बीच जो भी शोर वितरण होता है उसे रद्द करता है। यदि दोनों मानचित्रों में 127k से संबंधित नहीं टोकन पर लगभग समान वजन होता है (जो वे यादृच्छिक आरंभिकरण पर करेंगे), तो वे रद्द कर देते हैं। कुछ वास्तव में प्रासंगिक टोकन पर संकेत  पीक वजन  केवल तभी रद्द होता है जब यह दोनों मानचित्रों में समान परिमाण पर दिखाई देता है, जो यह एक बार मॉडल ट्रेन नहीं करेगा।

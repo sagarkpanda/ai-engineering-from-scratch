@@ -75,7 +75,7 @@ graph TD
 पीपीओ के उद्देश्य को याद रखें (पढ़ें पाठ 07):
 
 ```math
-L_{\text{PPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A, \operatorname{clip}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A\right)\right]
+L_{\text{PPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A, \mathop{\mathrm{clip}}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A\right)\right]
 ```
 
 कहाँ`A`लाभ है, आमतौर पर सीखा मूल्य नेटवर्क का उपयोग करके GAE के साथ अनुमानित `V(s)`मूल्य नेटवर्क नीति के समान आकार का दूसरा मॉडल है। यह स्मृति को दोगुना करता है और अपना स्वयं का प्रशिक्षण लूप पेश करता है।
@@ -83,13 +83,13 @@ L_{\text{PPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A, \operatorname{clip
 GRPO मूल्य फ़ंक्शन को बाहर फेंक देता है। प्रत्येक प्रॉम्प्ट के लिए, यह $G$प्रतिक्रियाएँ (आमतौर पर $G=16$प्रत्येक प्रतिक्रिया के लिए पुरस्कार की गणना की जाती है, फिर समूह के भीतर सामान्यीकृत किया जाता हैः
 
 ```math
-A_i = \frac{r_i - \operatorname{mean}(r_1, \ldots, r_G)}{\operatorname{std}(r_1, \ldots, r_G)}
+A_i = \frac{r_i - \mathop{\mathrm{mean}}(r_1, \ldots, r_G)}{\mathop{\mathrm{std}}(r_1, \ldots, r_G)}
 ```
 
 लाभ उत्तर के प्रतिफल का z-स्कोर है। कोई मूल्य फ़ंक्शन नहीं है। समूह अपनी मूल रेखा के रूप में कार्य करता है।
 
 ```math
-L_{\text{GRPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A_{\text{group}}, \operatorname{clip}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A_{\text{group}}\right)\right] - \beta \cdot \mathrm{KL}(\pi \,\|\, \pi_{\text{ref}})
+L_{\text{GRPO}} = \mathbb{E}\left[\min\left(r(\theta) \cdot A_{\text{group}}, \mathop{\mathrm{clip}}(r(\theta), 1-\epsilon, 1+\epsilon) \cdot A_{\text{group}}\right)\right] - \beta \cdot \mathrm{KL}(\pi \,\|\, \pi_{\text{ref}})
 ```
 
 संदर्भ मॉडल के खिलाफ KL दंड अभी भी है, पीपीओ के समान. क्लिप अनुपात अभी भी है. जो चला गया है अलग आलोचक है.
