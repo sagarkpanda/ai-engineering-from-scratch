@@ -222,6 +222,10 @@ Bir eğitim adım:
 
 ## Yapın
 
+```figure
+iso-machine {"machine":"mini-gpt"}
+```
+
 ### Adım 1: Katman Ekle
 
 Token yerleşimleri, 50.257 olası tokenin her birini 768 boyutlu bir vektöre haritasıyor. Konum yerleşimleri, her tokenin sırada nerede yer aldığı hakkında bilgi ekliyor.
@@ -258,7 +262,7 @@ def attention(Q, K, V, mask=None):
     return weights @ V
 ```
 
-Softmax uygulaması, eksponenciasyon yapmadan önce maksimumı çıkarır. Bu olmadan, exp(large_number) sonsuzluğa akıyor. Bu, çıkışın değişmediği sayısal istikrar hilesidir çünkü $\operatorname{softmax}(x - c) = \operatorname{softmax}(x)$Herhangi bir sabit için .$c$- Evet .
+Softmax uygulaması, eksponenciasyon yapmadan önce maksimumı çıkarır. Bu olmadan, exp(large_number) sonsuzluğa akıyor. Bu, çıkışın değişmediği sayısal istikrar hilesidir çünkü $\mathop{\mathrm{softmax}}(x - c) = \mathop{\mathrm{softmax}}(x)$Herhangi bir sabit için .$c$- Evet .
 
 ### Üçüncü Adım: Çok Başlı Dikkat
 
@@ -504,7 +508,7 @@ Bu ders bize çok yararlı .`outputs/prompt-gpt-architecture-analyzer.md`-- herh
 
 1. Modelle 12/12 yerine 24 kat ve 16 baş kullanmak için değişiklik yapın. Parametreyi sayın.
 
-2. GELU etkinleştirme fonksiyonunu uygulayın $(\operatorname{GELU}(x) = x \cdot 0.5 \cdot (1 + \operatorname{erf}(x / \sqrt{2})))$Her aktivasyonda 500 adımlık eğitim yapın ve son kaybı karşılaştırın.
+2. GELU etkinleştirme fonksiyonunu uygulayın $(\mathop{\mathrm{GELU}}(x) = x \cdot 0.5 \cdot (1 + \mathop{\mathrm{erf}}(x / \sqrt{2})))$Her aktivasyonda 500 adımlık eğitim yapın ve son kaybı karşılaştırın.
 
 3. Generasyon fonksiyonuna bir KV önbelleği ekleyin. İlk ileri geçişten sonra her katman için K ve V tensörlerini saklayın ve sonraki jetonlar için tekrar kullanın. Hızlandırmayı ölçün: 200 jetonları önbelleği ile ve olmadan oluşturun ve duvar saatini karşılaştırın.
 
